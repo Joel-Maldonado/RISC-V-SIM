@@ -83,6 +83,22 @@ Run automated checks:
 make test
 ```
 
+Run the official RV32I tests (`rv32ui`) from
+[riscv-tests](https://github.com/riscv-software-src/riscv-tests):
+
+```bash
+git clone https://github.com/riscv-software-src/riscv-tests
+make riscv-tests RISCV_TESTS=riscv-tests
+```
+
+They build against a small stand-in for the riscv-tests environment
+(`tests/riscv-tests/riscv_test.h`) that exits through `ECALL` instead of
+using CSRs. `ma_data` is skipped: it expects misaligned loads and stores to
+work, and this simulator traps them instead.
+
+On Ubuntu the cross compiler is `gcc-riscv64-unknown-elf`; add
+`RISCV_PREFIX=riscv64-unknown-elf` to the `make` commands.
+
 ## CLI
 
 ```text

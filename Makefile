@@ -21,7 +21,7 @@ DEMO_ASM := $(DEMO_DIR)/demo.s
 DEMO_ELF := $(DEMO_DIR)/demo.elf
 DEMO_DISASM := $(DEMO_DIR)/demo.disasm
 
-.PHONY: all sim toolchain-check demo-asm demo-elf run-demo test clean
+.PHONY: all sim toolchain-check demo-asm demo-elf run-demo test riscv-tests clean
 
 all: sim
 
@@ -55,6 +55,10 @@ run-demo: sim demo-elf
 
 test: sim demo-elf
 	@tests/test_sim_demo.sh
+
+# The rv32ui suite from https://github.com/riscv-software-src/riscv-tests
+riscv-tests: sim toolchain-check
+	@RISCV_GCC=$(RISCV_GCC) tests/run_riscv_tests.sh $(RISCV_TESTS)
 
 clean:
 	rm -rf build
