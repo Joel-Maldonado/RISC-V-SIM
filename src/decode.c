@@ -159,7 +159,7 @@ const char *rv32i_mnemonic(uint32_t instruction) {
         case 0x67:
             return (funct3 == 0x0U) ? "jalr" : "illegal";
         case 0x0f:
-            return (funct3 == 0x0U) ? "fence" : "illegal";
+            return (funct3 == 0x0U) ? "fence" : (funct3 == 0x1U ? "fence.i" : "illegal");
         case 0x73:
             if (funct3 != 0x0U) {
                 return "illegal";

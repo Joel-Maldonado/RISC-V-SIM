@@ -43,7 +43,7 @@ flowchart LR
 - `SB`, `SH`, `SW`
 - `ADDI`, `SLTI`, `SLTIU`, `XORI`, `ORI`, `ANDI`, `SLLI`, `SRLI`, `SRAI`
 - `ADD`, `SUB`, `SLL`, `SLT`, `SLTU`, `XOR`, `SRL`, `SRA`, `OR`, `AND`
-- `FENCE` (treated as no-op in this single-core model)
+- `FENCE`, and `FENCE.I` from Zifencei (both no-ops: one hart, no caches)
 - `ECALL`, `EBREAK`
 
 ## Prerequisites

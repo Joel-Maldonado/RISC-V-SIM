@@ -416,7 +416,9 @@ rv32i_run_result_t rv32i_run(rv32i_cpu_t *cpu, rv32i_mem_t *mem, uint64_t max_st
                 break;
 
             case 0x0f:
-                if (funct3 != 0x0U) {
+                /* FENCE and FENCE.I (Zifencei). One hart, no caches, and every
+                   fetch reads memory fresh, so neither has anything to wait for. */
+                if (funct3 > 0x1U) {
                     raise_trap(cpu, RV32I_TRAP_ILLEGAL_INSTRUCTION);
                     advance_pc = 0;
                 }
