@@ -1,7 +1,7 @@
-// Just enough of the riscv-tests environment to run the rv32ui tests on this
-// simulator. The real environments set up CSRs, trap vectors and a tohost
-// mailbox; we have none of those, so a test exits with ECALL (a7 = 93) like
-// any other program: exit code 0 on pass, the failing test's number on fail.
+// Just enough of the riscv-tests environment to run the rv32ui tests here.
+// The real ones set up CSRs, trap vectors and a tohost mailbox, and I don't
+// have any of that. So a test just exits with ECALL (a7 = 93) like any other
+// program, with exit code 0 if it passed or the failing test's number if not.
 #ifndef RV32I_SIM_RISCV_TEST_H
 #define RV32I_SIM_RISCV_TEST_H
 

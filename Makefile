@@ -56,7 +56,7 @@ run-demo: sim demo-elf
 test: sim demo-elf
 	@tests/test_sim_demo.sh
 
-# The rv32ui suite from https://github.com/riscv-software-src/riscv-tests
+# the official rv32ui tests, from https://github.com/riscv-software-src/riscv-tests
 riscv-tests: sim toolchain-check
 	@RISCV_GCC=$(RISCV_GCC) tests/run_riscv_tests.sh $(RISCV_TESTS)
 

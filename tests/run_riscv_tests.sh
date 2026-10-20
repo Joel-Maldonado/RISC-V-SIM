@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Build every rv32ui test from a riscv-tests checkout and run it on the simulator.
-# Usage: tests/run_riscv_tests.sh path/to/riscv-tests
+# Builds every rv32ui test from a riscv-tests checkout and runs it on the sim.
+# usage: tests/run_riscv_tests.sh path/to/riscv-tests
 set -uo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -9,8 +9,8 @@ SIM="$ROOT_DIR/build/rv32i-sim"
 OUT_DIR="$ROOT_DIR/build/riscv-tests"
 RISCV_GCC="${RISCV_GCC:-riscv64-elf-gcc}"
 
-# fence.i (Zifencei) and CSRs (Zicsr) aren't RV32I, but the assembler has to
-# accept them for the tests that mention them to build at all.
+# fence.i (Zifencei) and CSRs (Zicsr) aren't part of RV32I, but the assembler
+# still has to accept them or the tests that mention them won't even build.
 CFLAGS="-march=rv32i_zicsr_zifencei -mabi=ilp32 -nostdlib -nostartfiles \
   -I$ROOT_DIR/tests/riscv-tests -I$TESTS_DIR/isa/macros/scalar \
   -T $ROOT_DIR/programs/linker.ld -Wl,--build-id=none -Wl,--no-warn-rwx-segments"
@@ -20,8 +20,8 @@ mkdir -p "$OUT_DIR"
 
 tests=$(sed -n '/^rv32ui_sc_tests = /,/^$/p' "$TESTS_DIR/isa/rv32ui/Makefrag" |
         tr -d '\\' | sed 's/rv32ui_sc_tests = //')
-# ma_data checks that misaligned loads and stores work. Here they trap
-# (MISALIGNED_ACCESS) on purpose, which the spec allows, so skip it.
+# ma_data checks that misaligned loads and stores work. Mine trap on purpose
+# (MISALIGNED_ACCESS), which the spec allows, so just skip it.
 skip="ma_data"
 
 pass=0
